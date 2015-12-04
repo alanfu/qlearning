@@ -25,6 +25,8 @@
 /* Begin PBXFileReference section */
 		9FCA2D5A1C12232C0020DE78 /* qlearning */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = qlearning; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCA2D5D1C12232C0020DE78 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		9FCA2D651C1232BA0020DE78 /* parse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = parse.hpp; sourceTree = "<group>"; };
+		9FCA2D661C123CF50020DE78 /* qlearner.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = qlearner.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,8 @@
 			isa = PBXGroup;
 			children = (
 				9FCA2D5D1C12232C0020DE78 /* main.cpp */,
+				9FCA2D661C123CF50020DE78 /* qlearner.hpp */,
+				9FCA2D651C1232BA0020DE78 /* parse.hpp */,
 			);
 			path = qlearning;
 			sourceTree = "<group>";
@@ -207,6 +211,7 @@
 		9FCA2D621C12232C0020DE78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -214,6 +219,7 @@
 		9FCA2D631C12232C0020DE78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -237,6 +243,7 @@
 				9FCA2D631C12232C0020DE78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

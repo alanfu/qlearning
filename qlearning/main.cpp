@@ -7,9 +7,11 @@
 //
 
 #include <iostream>
+#include "qlearner.hpp"
+using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    qlearning::qlearner<int> qq("world02.csv");
+    qq.learn();
+    qq.optimal_path();
 }
