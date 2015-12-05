@@ -44,7 +44,7 @@ namespace qlearning
         {
             Position goal_pos = get_goal_pos(origin_map);
             SizeType goal_state = get_state(goal_pos);
-            SizeType old_state;
+            
             int reward;
             
             for(int i = 0; i < 10000; i++)
@@ -53,6 +53,7 @@ namespace qlearning
                 auto new_map = origin_map;
                 Position current_pos = get_current_pos(new_map);
                 SizeType current_state = get_state(current_pos);
+                SizeType old_state;
                 auto act = initial_query();
                 
                 while(current_state != goal_state)
@@ -107,8 +108,7 @@ namespace qlearning
             auto old_value = qtable[old_state][action];
             auto max_q = max_element(qtable[current_state].begin(),
                                      qtable[current_state].end());
-            auto new_value = (1 - alpha) * old_value +
-                            alpha * (reward + gamma * (*max_q));
+            auto new_value = (1 - alpha) * old_value + alpha * (reward + gamma * (*max_q));
             
             qtable[old_state][action] = new_value;
             return get_rand();
@@ -151,12 +151,12 @@ namespace qlearning
             return random_integer;
         }
         
-        inline SizeType get_state(Position& pos)
+        inline SizeType get_state(const Position& pos) const
         {
             return get<0>(pos) * 10 + get<1>(pos);
         }
         
-        inline Position get_current_pos(Matrix<T>& mat)
+        inline Position get_current_pos(const Matrix<T>& mat)
         {
             Position pos;
             
@@ -171,7 +171,7 @@ namespace qlearning
             return pos;
         }
         
-        inline Position get_goal_pos(Matrix<T>& mat)
+        inline Position get_goal_pos(const Matrix<T>& mat)
         {
             Position pos;
             
