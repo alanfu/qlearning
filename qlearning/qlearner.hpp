@@ -30,13 +30,16 @@ namespace qlearning
         num_states(100),
         num_actions(4),
         alpha(0.2),
-        gamma(0.9)
+        gamma(0.9),
+        rar(0.98),
+        radr(0.99)
         {
             origin_map = qlearning::parse<T>(file);
             qtable = initial_qtable();
             
             rng = std::mt19937(rd());
-            uni = std::uniform_int_distribution<int>(0,num_actions - 1);
+            int_uni = std::uniform_int_distribution<int>(0,num_actions - 1);
+            real_uni = std::uniform_real_distribution<double>(0,1);
             //qlearning::print(origin_map);
         }
         
@@ -47,7 +50,7 @@ namespace qlearning
             
             int reward;
             
-            for(int i = 0; i < 10000; i++)
+            for(int i = 0; i < 500; i++)
             {
                 int steps = 0;
                 auto new_map = origin_map;
@@ -71,7 +74,7 @@ namespace qlearning
                     
                     steps += 1;
                 }
-                //cout << "iteration " << i << " : " << steps << endl;
+                cout << "iteration " << i << " : " << steps << endl;
             }
         }
         
@@ -82,6 +85,7 @@ namespace qlearning
             SizeType goal_state = get_state(goal_pos);
             Position current_pos = get_current_pos(new_map);
             SizeType current_state = get_state(current_pos);
+            int steps = 0;
             
             while(current_state != goal_state)
             {
@@ -89,15 +93,38 @@ namespace qlearning
                                 max_element(qtable[current_state].begin(),
                                             qtable[current_state].end()));
                 current_pos = move_robot(new_map, act);
+                steps += 1;
+                
                 current_state = get_state(current_pos);
             }
-            qlearning::print(new_map);
+            cout << "steps: " << steps << endl;
+            //qlearning::print(new_map);
         }
         
     private:
         inline int initial_query()
         {
             return get_rand();
+        }
+        
+        inline void update_rar()
+        {
+            rar *= radr;
+        }
+        
+        inline int action_generator(const SizeType current_state)
+        {
+            auto random_num = real_uni(rng);
+            int act;
+            
+            if(random_num > rar) // optimal action
+                act = distance(qtable[current_state].begin(),
+                                max_element(qtable[current_state].begin(),
+                                            qtable[current_state].end()));
+            else
+                act = get_rand();
+            
+            return act;
         }
         
         inline int query(int action,
@@ -111,7 +138,10 @@ namespace qlearning
             auto new_value = (1 - alpha) * old_value + alpha * (reward + gamma * (*max_q));
             
             qtable[old_state][action] = new_value;
-            return get_rand();
+            
+            auto act = action_generator(current_state);
+            update_rar();
+            return act;
         }
         
         inline Position move_robot(Matrix<T>& map,
@@ -147,7 +177,7 @@ namespace qlearning
         
         inline int get_rand()
         {
-            auto random_integer = uni(rng);
+            auto random_integer = int_uni(rng);
             return random_integer;
         }
         
@@ -201,11 +231,15 @@ namespace qlearning
         std::random_device rd;
         // random-number engine used (Mersenne-Twister in this case)
         std::mt19937 rng;
-        // guaranteed unbiased
-        std::uniform_int_distribution<int> uni;
+        
+        std::uniform_int_distribution<int> int_uni;
+        std::uniform_real_distribution<double> real_uni;
         
         double alpha;
         double gamma;
+        
+        double rar; //random action rate
+        double radr; //random action decay rate
         
         SizeType num_states;
         SizeType num_actions;

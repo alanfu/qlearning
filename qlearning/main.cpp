@@ -8,10 +8,17 @@
 
 #include <iostream>
 #include "qlearner.hpp"
+#include <ctime>
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+    clock_t start = clock();
+    double duration;
+    
     qlearning::qlearner<int> qq("world02.csv");
     qq.learn();
-    qq.optimal_path();
+    //qq.optimal_path();
+    
+    duration = (clock() - start) / (double) CLOCKS_PER_SEC;
+    cout << duration << " second" << endl;
 }
