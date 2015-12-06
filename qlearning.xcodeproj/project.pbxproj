@@ -27,6 +27,8 @@
 		9FCA2D5D1C12232C0020DE78 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9FCA2D651C1232BA0020DE78 /* parse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = parse.hpp; sourceTree = "<group>"; };
 		9FCA2D661C123CF50020DE78 /* qlearner.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = qlearner.hpp; sourceTree = "<group>"; };
+		9FCA2D671C1384BA0020DE78 /* qlearner_simple.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = qlearner_simple.hpp; sourceTree = "<group>"; };
+		9FCA2D681C13C0B40020DE78 /* qlearner_dyna.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = qlearner_dyna.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,8 @@
 			children = (
 				9FCA2D5D1C12232C0020DE78 /* main.cpp */,
 				9FCA2D661C123CF50020DE78 /* qlearner.hpp */,
+				9FCA2D671C1384BA0020DE78 /* qlearner_simple.hpp */,
+				9FCA2D681C13C0B40020DE78 /* qlearner_dyna.hpp */,
 				9FCA2D651C1232BA0020DE78 /* parse.hpp */,
 			);
 			path = qlearning;
